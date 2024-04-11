@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>CRS | @yield('title')</title>
+    <title>IPAIS | @yield('title')</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -23,7 +23,7 @@
     <nav class="navbar navbar-expand-lg bg-light navbar-light shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <h3 class="fw-bold text-black ms-2">CRIME REPORTING SYSTEM</h3>
+                <h3 class="fw-bold text-black ms-2 text-wrap">INTEGRATED POLICE ASSISTANCE AND INFORMATION SYSTEM</h3>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
