@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +15,12 @@ class DashboardController extends Controller
     public function index()
     {
         if(Auth::user()->role==='admin'){
-            return view('admin.dashboard');
+            $reporters=User::where('role','reporter')->count();
+            $officers=User::where('role','officer')->count();
+            return view('admin.dashboard',[
+                "reporters"=>$reporters,
+                "officers"=>$officers,
+            ]);
         }
         elseif(Auth::user()->role==='officer'){
             return view('officer.dashboard'); 
