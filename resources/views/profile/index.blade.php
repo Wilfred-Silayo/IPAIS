@@ -1,5 +1,7 @@
 @extends('layout')
 @section('title','Profile Settings')
 @section('content')
-profile
+<div class="container">
+    <x-profile :user=$user />
+</div>
 @endsection

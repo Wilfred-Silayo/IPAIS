@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 
 class ProfileController extends Controller
@@ -13,15 +14,17 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('profile.view');
+        $user=User::where('username',Auth::user()->username)->first();
+        return view('profile.index',['user'=>$user]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for editing the specified resource.
      */
-    public function create()
+    public function edit()
     {
-        //
+        $user=User::where('username',Auth::user()->username)->first();
+        return view('profile.edit',['user'=>$user]);   
     }
 
     /**
@@ -41,9 +44,9 @@ class ProfileController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for creating a new resource.
      */
-    public function edit(string $id)
+    public function create()
     {
         //
     }
@@ -51,9 +54,16 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            "first_name"=>['required','string'],
+            "last_name"=>['required','string'],
+            "email"=>['required','email'],
+            "address"=>['nullable','string'],
+            "dob"=>['nullable','date'],
+            "profile_image"=>['nullable','image']
+        ]);
     }
 
     /**

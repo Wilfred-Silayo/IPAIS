@@ -19,7 +19,7 @@
                             </header>
 
                             <form method="post" action="{{ route('password.update') }}" class="mt-6 py-6">
-                                @if (session('status') === 'password-updated')
+                                @if (session('status'))
                                <div class="alert alert-success fade show">
                                {{ session('status') }}
                                </div>
@@ -77,7 +77,7 @@
                                 </div>
 
                                 <div class="flex items-center gap-4">
-                                    <button type="submit" class="px-4 py-2 text-white btn btn-secondary">
+                                    <button type="submit" class="px-4 py-2 text-white btn btn-primary">
                                         {{ __('Save') }}
                                     </button>
                                 </div>
