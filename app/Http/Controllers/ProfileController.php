@@ -62,15 +62,41 @@ class ProfileController extends Controller
             "email"=>['required','email'],
             "address"=>['nullable','string'],
             "dob"=>['nullable','date'],
-            "profile_image"=>['nullable','image']
+            "profile_image"=>['nullable','image','mimes:jpg,jpeg,bmp,png'],
         ]);
+
+        $user = Auth::user(); 
+    
+        // Handle profile image upload
+        if ($request->hasFile('profile_image')) {
+            $profileImage = $request->file('profile_image');
+            $profileImageName = time() . '_' . $profileImage->getClientOriginalName();
+            $profileImage->storeAs('public/profile_images', $profileImageName); // Store the image in the storage folder
+            $user->profile_image = $profileImageName; // Save the image name to the user's profile
+        }
+    
+        // Update other user fields
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->email = $request->input('email');
+        $user->address = $request->input('address');
+        $user->dob = $request->input('dob');
+
+        /** @var User $user */
+        $user->save(); 
+    
+        return redirect()->back()->with('success', 'Profile updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
-        //
+        $email=Auth::user()->email;
+        $user = User::where('email', $email)->first();
+        $user->delete();
+
+        return redirect("/")->with('info', 'User account deleted successfully. Welcome again!');
     }
 }

@@ -20,15 +20,14 @@
 
                             <form method="post" action="{{ route('password.update') }}" class="mt-6 py-6">
                                 @if (session('status'))
-                               <div class="alert alert-success fade show">
-                               {{ session('status') }}
-                               </div>
+                                <div class="alert alert-success fade show">
+                                    {{ session('status') }}
+                                </div>
                                 @endif
                                 @if (session('error'))
-                                <div id="successmessage" class="alert alert-warning fade show"
-                                    role="alert">
+                                <div id="successmessage" class="alert alert-warning fade show" role="alert">
                                     <strong>{{ session('error') }}</strong>
-                                    
+
                                 </div>
                                 @endif
                                 @csrf
@@ -76,10 +75,11 @@
                                     @enderror
                                 </div>
 
-                                <div class="flex items-center gap-4">
-                                    <button type="submit" class="px-4 py-2 text-white btn btn-primary">
+                                <div class="card-footer d-flex justify-content-between">
+                                    <button type="submit" class="btn btn-primary">
                                         {{ __('Save') }}
                                     </button>
+                                    <a href="{{route('profile.settings')}}" class="btn btn-secondary">Cancel</a>
                                 </div>
                             </form>
                         </section>

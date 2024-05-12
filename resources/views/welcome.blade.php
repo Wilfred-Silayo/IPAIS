@@ -2,6 +2,15 @@
 @section('title','Welcome')
 @section('content')
 <div class="container-fluid">
+    @session('error')
+    <x-alert type="danger" session="error" />
+    @endsession.
+    @session('info')
+    <x-alert type="info" session="info" />
+    @endsession
+    @session('success')
+    <x-alert type="success" session="success" />
+    @endsession
 
     <!---small screen welcome navigation-->
     <div class="row d-inline d-md-none d-lg-none d-xl-none d-xxl-none">

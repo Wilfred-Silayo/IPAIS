@@ -40,6 +40,10 @@
                     @if(Route::has('login'))
                     @auth
                     <li class="nav-item">
+                        <img height="40" width="40" class="rounded-circle border border-1 border-primary p-1 mb-2"
+                            src="{{asset(Storage::url('profile_images/'.Auth::user()->profile_image))}}" alt="profile image">
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link fw-bold text-dark" href="{{route('profile.settings')}}">
                             {{ Auth::user()->first_name }} {{ Auth::user()->last_name}}
                         </a>

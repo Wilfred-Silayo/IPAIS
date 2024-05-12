@@ -8,7 +8,7 @@
                 <div class="card-header fw-bold">
                     Edit profile
                 </div>
-                <form action="{{route('profile.update')}}" method="post">
+                <form action="{{route('profile.update')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     <div class="card-body">
@@ -23,9 +23,9 @@
                         @endsession
                         <div class="row">
                             <div class="col">
-                                <img height="100" width="auto"
-                                    class="rounded-circle border border-2 border-primary p-1 mb-2"
-                                    src="{{asset(Storage::url($user->profile_image))}}" alt="profile image">
+                                <img height="100" width="auto" class="rounded border border-2 border-primary p-1 mb-2"
+                                    src="{{asset(Storage::url('profile_images/'.$user->profile_image))}}"
+                                    alt="profile image">
                             </div>
                             <div class="col">
                                 <x-update-field text="Profile photo" input="profile_image" type="file"
@@ -51,11 +51,11 @@
                         <x-update-field text="Date of Birth" input="dob" type="date" :value="$user->dob" />
 
                     </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <input type="submit" value="Save" class="btn btn-primary">
+                        <a href="{{route('profile.settings')}}" class="btn btn-secondary">Cancel</a>
+                    </div>
                 </form>
-
-                <div class="card-footer">
-                    <input type="submit" value="Save" class="btn btn-primary">
-                </div>
             </div>
         </div>
     </div>

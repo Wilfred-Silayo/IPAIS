@@ -12,4 +12,7 @@ Route::middleware('auth')->group(function(){
 
     Route::put('profile/update',[ProfileController::class,'update'])
     ->name('profile.update');
+
+    Route::post('profile/destroy',[ProfileController::class,'destroy'])
+    ->name('profile.destroy');
 });
