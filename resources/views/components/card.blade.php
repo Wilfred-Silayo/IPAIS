@@ -5,7 +5,9 @@
     <div class="card-body fw-bold text-center">
         {{$body}}
     </div>
+    @if($route!=="")
     <div class="card-footer">
         <a href="{{route($route)}}" class="btn btn-primary"> Manage</a>
     </div>
+    @endif
 </div>

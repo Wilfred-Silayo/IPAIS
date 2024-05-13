@@ -56,16 +56,27 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-        $request->validate([
-            "first_name"=>['required','string'],
-            "last_name"=>['required','string'],
-            "email"=>['required','email'],
-            "address"=>['nullable','string'],
-            "dob"=>['nullable','date'],
-            "profile_image"=>['nullable','image','mimes:jpg,jpeg,bmp,png'],
-        ]);
-
-        $user = Auth::user(); 
+        $user = Auth::user();
+    
+        // Define validation rules
+        $rules = [
+            "first_name" => ['required', 'string'],
+            "last_name" => ['required', 'string'],
+            "address" => ['nullable', 'string'],
+            "dob" => ['nullable', 'date'],
+            "profile_image" => ['nullable', 'image', 'mimes:jpg,jpeg,bmp,png'],
+        ];
+    
+        // If the email is being changed, add uniqueness validation rule
+        if ($request->input('email') !== $user->email) {
+            $rules['email'] = ['required', 'email', 'unique:users'];
+        } else {
+            // If email is not being changed, remove uniqueness validation rule
+            $rules['email'] = ['required', 'email'];
+        }
+    
+        // Validate request data
+        $request->validate($rules);
     
         // Handle profile image upload
         if ($request->hasFile('profile_image')) {
@@ -75,18 +86,19 @@ class ProfileController extends Controller
             $user->profile_image = $profileImageName; // Save the image name to the user's profile
         }
     
-        // Update other user fields
+        // Update user fields
         $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');
         $user->address = $request->input('address');
         $user->dob = $request->input('dob');
-
+    
         /** @var User $user */
-        $user->save(); 
+        $user->save();
     
         return redirect()->back()->with('success', 'Profile updated successfully');
     }
+    
 
     /**
      * Remove the specified resource from storage.

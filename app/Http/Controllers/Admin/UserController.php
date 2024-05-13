@@ -40,6 +40,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            "first_name"=>['required','string'],
+            "last_name"=>['required','string'],
+            "email"=>['required','email','unique:users,email'],
+        ]);
         $password=null;
         $rawpass=null;
         
@@ -71,6 +76,31 @@ class UserController extends Controller
 
     }
 
+    public function search(Request $request){
+        $request->validate([
+            'query'=>['required'],
+        ]);
+    
+        $query = $request->query('query');
+    
+        if(strtolower($request->user_type) === "reporters"){
+            $user_type = "Reporters";
+            $users = User::where('role', 'reporter')
+                ->where('first_name', 'like', '%' . $query . '%')
+                ->orWhere('last_name', 'like', '%' . $query . '%')
+                ->orWhere('email', 'like', '%' . $query . '%')
+                ->paginate(10);
+            return view('admin.users', ['users' => $users, 'user_type' => $user_type]);
+        } else {
+            $user_type = "Officers";
+            $users = User::where('role', 'officer')
+                ->where('first_name', 'like', '%' . $query . '%')
+                ->orWhere('last_name', 'like', '%' . $query . '%')
+                ->orWhere('email', 'like', '%' . $query . '%')
+                ->paginate(10);
+            return view('admin.users', ['users' => $users, 'user_type' => $user_type]);
+        }
+    }
     
 
     /**

@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+use App\Http\Controllers\FoundItemsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Reporter\LostItemsController;
 use App\Http\Controllers\Reporter\CrimeController;
@@ -19,6 +21,8 @@ Route::middleware('reporter')->group(function(){
 
     Route::get('notifications',[NotificationController::class,'index'])
     ->name('reporter.notifications');
-
+    
+    Route::get('found items',[FoundItemsController::class,'index'])
+    ->name('reporter.view.found.items');
     
 });

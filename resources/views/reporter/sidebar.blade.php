@@ -12,8 +12,10 @@
                         icon="fa-solid fa-sharp fa-binoculars " />
                     <x-nav-link-component route="reporter.view.lost.items" text="View Lost Items"
                         icon="fa-solid fa-sharp fa-tag " />
+                    <x-nav-link-component route="reporter.view.found.items" text="View Found Items"
+                        icon="fa-solid fa-sharp fa-list " />
                     <x-nav-link-component route="profile.settings" text="Profile"
-                        icon="fa-solid fa-sharp fa-user-cog "  />
+                        icon="fa-solid fa-sharp fa-user-cog " />
                     <x-nav-link-component route="reporter.notifications" text="Notifications"
                         icon="fa-solid fa-sharp fa-bell" />
                 </ul>

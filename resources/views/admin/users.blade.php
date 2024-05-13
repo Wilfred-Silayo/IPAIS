@@ -32,7 +32,8 @@
         </div>
         <div class="col">
             <form class="d-flex" action="{{ route('search.user') }}" method="GET">
-                <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
+                <input type="hidden" name="role" value="{{$user_type}}">
+                <input class="form-control me-2" name="query" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
@@ -46,8 +47,8 @@
         <thead>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Email</th>
             <th>Role</th>
+            <th>Email</th>
             <th>Action</th>
         </thead>
         <tbody>
