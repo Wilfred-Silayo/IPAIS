@@ -11,14 +11,16 @@ class Modal extends Component
     public $body;
     public $title;
     public $routeName;
+    public $modal;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($body, $title, $routeName)
+    public function __construct($body, $title, $routeName, $modal)
     {
         $this->body=$body;
         $this->title=$title;
+        $this->modal=$modal;
         $this->routeName=$routeName;
 
     }
@@ -29,6 +31,6 @@ class Modal extends Component
     public function render(): View|Closure|string
     {
         return view('components.modal',[
-        "body"=>$this->body,"title"=>$this->title,"routeName"=>$this->routeName]);
+        "body"=>$this->body,"title"=>$this->title,"routeName"=>$this->routeName,"modal"=>$this->modal]);
     }
 }

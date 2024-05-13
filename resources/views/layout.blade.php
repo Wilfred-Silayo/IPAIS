@@ -50,7 +50,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link fw-bold text-dark" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop">Logout
+                            data-bs-target="#logout">Logout
                         </a>
                     </li>
                     @else
@@ -108,7 +108,7 @@
     @endauth
 
     <!----modal component-->
-    <x-modal title="Confirm Logout" body="Are you sure you want to logout?" routeName="logout" />
+    <x-modal title="Confirm Logout" body="Are you sure you want to logout?" routeName="logout" modal="logout"/>
 </body>
 
 <script src="{{asset('js/bootstrap.js')}}"></script>
