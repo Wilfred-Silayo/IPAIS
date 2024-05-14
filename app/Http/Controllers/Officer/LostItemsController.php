@@ -12,7 +12,7 @@ class LostItemsController extends Controller
      */
     public function index()
     {
-        //
+        return view('officer.lost_items_reports');
     }
 
     /**

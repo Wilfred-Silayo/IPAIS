@@ -12,7 +12,7 @@ class CrimeController extends Controller
      */
     public function index()
     {
-        //
+        return view('officer.crime_reports');
     }
 
     /**
@@ -34,9 +34,9 @@ class CrimeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        return view('officer.most_wanted_reports');
     }
 
     /**
