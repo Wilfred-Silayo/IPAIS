@@ -10,6 +10,11 @@ class Crime extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'category', 'location', 'date_occurred', 'is_resolved'
+        'name', 'description', 'category', 'location', 'reported_by','is_published','date_occurred', 'is_resolved','is_most_wanted'
     ];
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->text('description');
             $table->string('category')->nullable();
             $table->string('location');
+            $table->string('reported_by');
+            $table->boolean('is_published')->default(false);
+            $table->boolean('is_most_wanted')->default(false);
             $table->dateTime('date_occurred');
             $table->boolean('is_resolved')->default(false);
             $table->timestamps();

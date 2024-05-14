@@ -36,12 +36,11 @@
         <div class="card-footer">
             <a href="{{route('profile.edit')}}" class="btn btn-primary">Edit Profile</a>
             <a href="{{route('password.edit')}}" class="btn btn-primary">Change Password</a>
-            <a href="#" class="btn btn-danger" data-bs-toggle="modal"
-                data-bs-target="#delete">Delete Account
+            <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete">Delete Account
             </a>
-
+            <x-modal title="Confirm delete" body="Are you sure you want to delete your account?"
+                routeName="profile.destroy" modal="delete" />
         </div>
     </div>
-</div>
 
-<x-modal title="Confirm delete" body="Are you sure you want to delete your account?" routeName="profile.destroy" modal ="delete" />
+</div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -124,6 +125,7 @@ class UserController extends Controller
      */
     public function destroy($email){
         $user = User::where('email', $email)->first();
+        Storage::delete('public/profile_images/' . $user->profile_image);
         $user->delete();
 
         return back()->with('info', 'User deleted successfully');
