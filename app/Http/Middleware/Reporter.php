@@ -17,7 +17,7 @@ class Reporter
     public function handle(Request $request, Closure $next): Response
     {
         if(!Auth::check() ){
-            return redirect('login')->with('error','Unauthorized');   
+            return redirect('login')->with('error','Unauthorized! please login first');   
         }
         if(Auth::user()->role !== 'reporter'){
             return redirect('dashboard')->with('error','Unauthorized');  

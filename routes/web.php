@@ -23,8 +23,8 @@ Route::middleware('guest')->group(function(){
     Route::get('/',[WelcomeController::class,'popular'])
     ->name('welcome.popular');
 
-    Route::get('welcome most wanted',[WelcomeController::class,'mostWanted'])
-    ->name('welcome.most.wanted');
+    Route::get('welcome found items',[WelcomeController::class,'foundItems'])
+    ->name('welcome.found.items');
 
     Route::get('welcome lost items',[WelcomeController::class,'lostItems'])
     ->name('welcome.lost.items');
