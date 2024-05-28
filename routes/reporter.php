@@ -48,9 +48,6 @@ Route::middleware('reporter')->group(function(){
 
     Route::get('search/crimes',[CrimeController::class,'search'])
     ->name('search.crime');
-
-    Route::get('notifications',[NotificationController::class,'index'])
-    ->name('reporter.notifications');
     
     Route::get('found/items',[FoundItemsController::class,'index'])
     ->name('reporter.view.found.items');

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,9 +16,6 @@ Route::prefix('admin')->middleware('admin')->group(function(){
 
     Route::post('register/officer', [UserController::class, 'store'])
     ->name('register.officer.store');
-
-    Route::get('notifications',[NotificationController::class,'index'])
-    ->name('admin.notifications');
 
     Route::get('search/users',[UserController::class,'search'])
     ->name('search.user');

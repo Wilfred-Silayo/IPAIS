@@ -16,12 +16,12 @@
                         icon="fa-solid fa-sharp fa-list " />
                     <x-nav-link-component route="profile.settings" text="Profile"
                         icon="fa-solid fa-sharp fa-user-cog " />
-                    <x-nav-link-component route="reporter.notifications" text="Notifications"
+                    <x-nav-link-component route="notifications" text="Notifications"
                         icon="fa-solid fa-sharp fa-bell" />
                 </ul>
             </div>
         </div>
-        <div class="col-md-9 col-xl-10 mt-2">
+        <div class="col-md-9 col-xl-10 mt-2 overflow-auto" style="height: 88vh;">
             @yield('content')
         </div>
     </div>

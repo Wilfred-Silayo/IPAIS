@@ -37,3 +37,4 @@ require __DIR__.'/reporter.php';
 require __DIR__.'/officer.php';
 require __DIR__.'/admin.php';
 require __DIR__.'/profile.php';
+require __DIR__.'/notifications.php';

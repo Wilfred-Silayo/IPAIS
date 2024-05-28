@@ -32,7 +32,7 @@
                     <a href="{{route('profile.edit')}}">Edit profile</a>
                 </li>
                 <li>
-                    <a href="{{route('admin.notifications')}}">Read notifications</a>
+                    <a href="{{route('notifications')}}">Read notifications</a>
                 </li>
             </ul>
 
