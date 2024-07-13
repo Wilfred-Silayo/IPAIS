@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Officer;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\LostItem;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
-class LostItemsController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $lost_items=LostItem::paginate(10);
-        return view('officer.lost_items_reports',['lostItems'=>$lost_items]);
+        //
     }
 
     /**
@@ -28,9 +26,20 @@ class LostItemsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $request->validate([
+            'content'=>'required|string',
+            'user_id'=>'required',
+        ]);
+
+        Comment::create([
+            'content'=>$request->content,
+            'post_id'=>$id,
+            'user_id'=>$request->user_id,
+        ]);
+
+        return back()->with('success','Comment posted successfully.');
     }
 
     /**

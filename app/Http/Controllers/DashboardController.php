@@ -17,11 +17,13 @@ class DashboardController extends Controller
     public function index()
     {
         if(Auth::user()->role==='admin'){
+            $users=User::orderByDesc('created_at')->paginate(10);
             $reporters=User::where('role','reporter')->count();
             $officers=User::where('role','officer')->count();
             return view('admin.dashboard',[
                 "reporters"=>$reporters,
                 "officers"=>$officers,
+                "users"=>$users,
             ]);
         }
         elseif(Auth::user()->role==='officer'){

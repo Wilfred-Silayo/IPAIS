@@ -19,7 +19,7 @@ class Conversations extends Component
 
 
     protected $rules = [
-        'content' => 'required|min:6|max:300',
+        'content' => 'required|min:6|max:500',
         'receiver_id'=>'required',
         'sender_id'=>'required',
     ];

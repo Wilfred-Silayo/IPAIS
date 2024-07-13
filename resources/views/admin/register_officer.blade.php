@@ -2,11 +2,11 @@
 @section('title','Registration')
 @section('content')
 
-<div class="row justify-content-center">
-    <div class="col-md-6">
+<div class="row">
+    <div class="col">
         <div class="card bg-light shadow-sm">
             <div class="card-header bg-secondary text-white">{{ __('Register') }}</div>
-            <div class="card-body">
+            <div class="card-body col-12 col-md-6">
                 @session('error')
                 <x-alert type="danger" session="error" />
                 @endsession.

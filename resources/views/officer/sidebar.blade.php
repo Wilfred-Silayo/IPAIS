@@ -6,7 +6,7 @@
                     <x-nav-link-component route="dashboard" text="Dashboard" icon="fa-solid fa-sharp fa-gauge " />
                     <x-nav-link-component route="officer.reports.lost.items" text="Lost Items Reports"
                         icon="fa-solid fa-sharp fa-book " />
-                    <x-nav-link-component route="officer.reports.crime" text="Crime Reports"
+                    <x-nav-link-component route="officer.reports.crime" text="Coincidences Reports"
                         icon="fa-solid fa-sharp fa-exclamation-triangle " />
                     <x-nav-link-component route="officer.reports.most.wanted" text="Most Wanted Reports"
                         icon="fa-solid fa-sharp fa-binoculars " />

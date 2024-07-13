@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use Illuminate\Http\Request;
+use Livewire\Attributes\Validate;
 
 class NotificationController extends Controller
 {
@@ -27,7 +29,19 @@ class NotificationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'content' => 'required|min:6|max:500',
+            'receiver_id' => 'required',
+            'sender_id' => 'required',
+        ]);
+
+        Notification::create([
+            'content'=>$request->content,
+            'receiver_id'=>$request->receiver_id,
+            'sender_id'=>$request->sender_id,
+        ]);
+
+        return back()->with('success','Message sent');
     }
 
     /**

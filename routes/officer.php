@@ -15,5 +15,13 @@ Route::prefix('officer')->middleware('officer')->group(function(){
     Route::get('reports/most/wanted', [CrimeController::class,'show'])
     ->name('officer.reports.most.wanted');
 
+    Route::post('crime/solve/{id}', [CrimeController::class, 'markAsSolved'])
+    ->name('crime.resolve');
+
+    Route::get('search/crimes',[CrimeController::class,'search'])
+    ->name('officer.search.crime');
+
+    Route::get('search/most/wanted',[CrimeController::class,'searchMostWanted'])
+    ->name('officer.search.mostwanted');
 
 });

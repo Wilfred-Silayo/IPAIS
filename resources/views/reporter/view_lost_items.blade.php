@@ -28,13 +28,11 @@
 
 </div>
 
-
 @if ($lostItems->isEmpty())
 <div class="alert alert-info mt-1">
     No lost items found. <a class="ms-2" href="{{ route('dashboard') }}">Go To Dashboard</a>
 </div>
 @else
-
 <div class="row mt-3">
     @foreach($lostItems as $lostItem)
     <div class="col-md-6 mb-4">
@@ -71,7 +69,37 @@
                         <a href="#" class="btn btn btn-outline-primary me-3" data-bs-toggle="modal"
                             data-bs-target="#viewLostItemModal{{ $lostItem->id }}"
                             data-lost-item="{{ json_encode($lostItem) }}">View</a>
+                        <a href="#" class="btn btn btn-outline-primary me-3" data-bs-toggle="modal"
+                            data-bs-target="#commentlostItemModal{{ $lostItem->id }}"
+                            data-coincidence="{{ json_encode($lostItem) }}">Comment</a>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comment Lost Item Modal -->
+    <div class="modal fade" id="commentlostItemModal{{ $lostItem->id }}" tabindex="-1"
+        aria-labelledby="deletelostItemModalLabel{{ $lostItem->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deletelostItemModalLabel{{ $lostItem->id }}">
+                        Comment on "{{ $lostItem->name }}"
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Please provide precise information about the lost item
+                    </p>
+                    <form action="{{ route('comment.store',$lostItem->id) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{auth()->user()->username}}">
+                        <textarea name="content" id="" class="col-12 form-control" rows="5" cols="60"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary mt-2">send</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -127,7 +155,6 @@
 </div>
 @endif
 {{ $lostItems->links('paginationlinks') }}
-</div>
 
 @endsection
 

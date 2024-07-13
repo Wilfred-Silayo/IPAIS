@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Officer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Crime;
 use Illuminate\Http\Request;
 
 class CrimeController extends Controller
@@ -12,7 +13,8 @@ class CrimeController extends Controller
      */
     public function index()
     {
-        return view('officer.crime_reports');
+        $crimes = Crime::where('is_most_wanted', 0)->paginate(10);
+        return view('officer.crime_reports', ['crimes' => $crimes]);
     }
 
     /**
@@ -36,7 +38,8 @@ class CrimeController extends Controller
      */
     public function show()
     {
-        return view('officer.most_wanted_reports');
+        $crimes = Crime::where('is_most_wanted', 1)->paginate(10);
+        return view('officer.most_wanted_reports', ['crimes' => $crimes]);
     }
 
     /**
@@ -45,6 +48,48 @@ class CrimeController extends Controller
     public function edit(string $id)
     {
         //
+    }
+
+    public function markAsSolved($crimeId)
+    {
+        $crime = Crime::findOrFail($crimeId);
+        $crime->is_resolved = !$crime->is_resolved;
+        $crime->save();
+
+        return back()->with('success', 'Marked successfully');
+    }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            'query' => ['required'],
+        ]);
+        $query = $request->query('query');
+
+
+        $crimes = Crime::where('is_most_wanted', 0)
+            ->where('name', 'like', '%' . $query . '%')
+            ->orWhere('category', 'like', '%' . $query . '%')
+            ->orWhere('description', 'like', '%' . $query . '%')
+            ->paginate(10);
+        return view('officer.crime_reports', ['crimes' => $crimes]);
+    }
+
+
+    public function searchMostWanted(Request $request)
+    {
+        $request->validate([
+            'query' => ['required'],
+        ]);
+        $query = $request->query('query');
+
+
+        $crimes = Crime::where('is_most_wanted', 1)
+            ->where('name', 'like', '%' . $query . '%')
+            ->orWhere('category', 'like', '%' . $query . '%')
+            ->orWhere('description', 'like', '%' . $query . '%')
+            ->paginate(10);
+        return view('officer.crime_reports', ['crimes' => $crimes]);
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 
@@ -29,6 +30,11 @@ Route::middleware('guest')->group(function(){
     Route::get('welcome lost items',[WelcomeController::class,'lostItems'])
     ->name('welcome.lost.items');
 
+});
+
+Route::middleware('auth')->group(function(){
+    Route::post('comment/{id}', [CommentController::class, 'store'])
+    ->name('comment.store');
 });
 
 
