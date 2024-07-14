@@ -13,8 +13,17 @@ class LostItemsController extends Controller
      */
     public function index()
     {
-        $lost_items=LostItem::paginate(10);
-        return view('officer.lost_items_reports',['lostItems'=>$lost_items]);
+        $lost_items = LostItem::paginate(10);
+        return view('officer.lost_items_reports', ['lostItems' => $lost_items]);
+    }
+
+    public function markAsSolved($lostItemId)
+    {
+        $lostItem = LostItem::findOrFail($lostItemId);
+        $lostItem->is_found = !$lostItem->is_found;
+        $lostItem->save();
+
+        return back()->with('success', 'Marked successfully');
     }
 
     /**
@@ -23,6 +32,20 @@ class LostItemsController extends Controller
     public function create()
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            'query' => ['required'],
+        ]);
+        $query = $request->query('query');
+
+        $lostItems = LostItem::where('name', 'like', '%' . $query . '%')
+            ->orWhere('category', 'like', '%' . $query . '%')
+            ->orWhere('description', 'like', '%' . $query . '%')
+            ->paginate(10);
+        return view('officer.lost_items_reports', ['lostItems' => $lostItems]);
     }
 
     /**

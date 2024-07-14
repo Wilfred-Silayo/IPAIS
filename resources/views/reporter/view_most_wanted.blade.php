@@ -41,7 +41,7 @@
                 <div class="carousel-inner">
                     @foreach($mostwanted->images as $image)
                     <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                        <img src="{{ asset('storage/mostwanted_images/' . $image->path) }}" class="d-block " alt="..."
+                        <img src="{{ asset('storage/crime_images/' . $image->path) }}" class="d-block " alt="..."
                             height="200">
                     </div>
                     @endforeach
@@ -80,7 +80,7 @@
         </div>
     </div>
 
-    <!-- Comment most wanted Modal -->
+    <!-- Comment Lost Item Modal -->
     <div class="modal fade" id="commentmostwantedModal{{ $mostwanted->id }}" tabindex="-1"
         aria-labelledby="deletemostwantedModalLabel{{ $mostwanted->id }}" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -92,9 +92,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Please provide precise information about the coincidence</p>
+                    <p>Please provide precise information about the lost item
+                    </p>
                     <form action="{{ route('comment.store',$mostwanted->id) }}" method="POST">
                         @csrf
+                        <input type="hidden" name="is_most_wanted" value="1">
                         <input type="hidden" name="user_id" value="{{auth()->user()->username}}">
                         <textarea name="content" id="" class="col-12 form-control" rows="5" cols="60"></textarea>
                 </div>
@@ -106,13 +108,13 @@
         </div>
     </div>
 
-    <!-- View mostwanted Modal -->
+    <!-- View most wanted Modal -->
     <div class="modal fade" id="viewmostwantedModal{{ $mostwanted->id }}" tabindex="-1"
         aria-labelledby="viewmostwantedModalLabel{{ $mostwanted->id }}" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="viewmostwantedModalLabel{{ $mostwanted->id }}">View a mostwanted</h5>
+                    <h5 class="modal-title" id="viewmostwantedModalLabel{{ $mostwanted->id }}">View Most Wanted</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -122,7 +124,7 @@
                         <div class="carousel-inner">
                             @foreach($mostwanted->images as $image)
                             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                <img src="{{ asset('storage/mostwanted_images/' . $image->path) }}" class="d-block w-100"
+                                <img src="{{ asset('storage/crime_images/' . $image->path) }}" class="d-block w-100"
                                     alt="...">
                             </div>
                             @endforeach

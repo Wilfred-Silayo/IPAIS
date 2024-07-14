@@ -132,6 +132,7 @@
                     </p>
                     <form action="{{ route('comment.store',$lostItem->id) }}" method="POST">
                         @csrf
+                        <input type="hidden" name="is_most_wanted" value="0">
                         <input type="hidden" name="user_id" value="{{auth()->user()->username}}">
                         <textarea name="content" id="" class="col-12 form-control" rows="5" cols="60"></textarea>
                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Officer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Crime;
 use Illuminate\Http\Request;
 
 class MostWantedController extends Controller
@@ -12,7 +13,8 @@ class MostWantedController extends Controller
      */
     public function index()
     {
-        //
+        $crimes = Crime::where('is_most_wanted', 1)->paginate(10);
+        return view('officer.most_wanted_reports', ['crimes' => $crimes]);
     }
 
     /**

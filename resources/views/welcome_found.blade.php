@@ -1,5 +1,13 @@
 <div class="container">
-    <h3 class="fw-bold">Lost Items</h3>
+    <h3 class="fw-bold">
+        @if($type ==1)
+        Lost items
+        @elseif($type==2)
+        Found Items
+        @else
+        Most Wanted
+        @endif
+    </h3>
 </div>
 @if ($foundItems->isEmpty())
 <div class="alert alert-info mt-1">
@@ -14,8 +22,12 @@
                 <div class="carousel-inner">
                     @foreach($foundItem->images as $image)
                     <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                        <img src="{{ asset('storage/lostItem_images/' . $image->path) }}" class="d-block" alt="..."
-                            height="200">
+                        @if($type == 3)
+                        <img src="{{ asset('storage/crime_images/' . $image->path) }}" class="d-block w-100" alt="...">
+                        @else
+                        <img src="{{ asset('storage/lostItem_images/' . $image->path) }}" class="d-block w-100"
+                            alt="...">
+                        @endif
                     </div>
                     @endforeach
                 </div>
@@ -42,7 +54,13 @@
                         <a href="#" class="btn btn btn-outline-primary me-3" data-bs-toggle="modal"
                             data-bs-target="#viewfoundItemModal{{ $foundItem->id }}"
                             data-lost-item="{{ json_encode($foundItem) }}">View</a>
+                        @if($type==2)
+                        <span class="fw-bold">
+                            Please go to the nearest police station to get your items
+                        </span>
+                        @else
                         <a href="{{route('search.most.wanted')}}" class="btn btn btn-outline-primary me-3">Comment</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -60,12 +78,18 @@
                 </div>
                 <div class="modal-body">
                     <!-- Carousel for images -->
-                    <div id="carouselfoundItemImages{{ $foundItem->id }}" class="carousel slide" data-bs-ride="carousel">
+                    <div id="carouselfoundItemImages{{ $foundItem->id }}" class="carousel slide"
+                        data-bs-ride="carousel">
                         <div class="carousel-inner">
                             @foreach($foundItem->images as $image)
                             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                @if($type == 3)
+                                <img src="{{ asset('storage/crime_images/' . $image->path) }}" class="d-block w-100"
+                                    alt="...">
+                                @else
                                 <img src="{{ asset('storage/lostItem_images/' . $image->path) }}" class="d-block w-100"
                                     alt="...">
+                                @endif
                             </div>
                             @endforeach
                         </div>

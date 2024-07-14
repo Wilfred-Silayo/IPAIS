@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('content');
             $table->string('user_id');
             $table->unsignedBigInteger('post_id');
+            $table->boolean('is_most_wanted');
             $table->timestamps();
         });
     }

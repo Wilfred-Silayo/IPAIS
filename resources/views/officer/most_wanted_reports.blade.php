@@ -19,6 +19,11 @@
             <h4 class="text-success">Most Wanted</h3>
         </div>
         <div class="col">
+            <a class="btn btn-sm  btn-success me-2" href="{{route('officer.create.crimes')}}">
+                <span><i class="fa fa-sharp fa-add"></i> Create</span>
+            </a>
+        </div>
+        <div class="col">
             <form class="d-flex" action="{{ route('officer.search.mostwanted') }}" method="GET">
                 <input class="form-control me-2" name="query" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
@@ -70,6 +75,8 @@
                             <a href="#" class="btn btn btn-outline-primary me-3" data-bs-toggle="modal"
                                 data-bs-target="#viewcrimeModal{{ $crime->id }}"
                                 data-lost-item="{{ json_encode($crime) }}">View</a>
+                            <a href="{{route('comments.mostwanted.list',$crime->id)}}"
+                                class="btn btn btn-outline-primary me-3">Comments</a>
                             @if(auth()->user()->username !== $crime->reported_by)
                             <a href="#" class="btn btn btn-outline-primary me-3" data-bs-toggle="modal"
                                 data-bs-target="#commentcrimeModal{{ $crime->id }}"
@@ -79,9 +86,9 @@
                                 @csrf
                                 <button class="btn btn btn-outline-primary me-3" type="submit">
                                     @if($crime->is_resolved)
-                                    Mark as Unsolved
+                                    Mark as Unfound
                                     @else
-                                    Mark as Solved
+                                    Mark as Found
                                     @endif
                                 </button>
                             </form>

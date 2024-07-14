@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Crime;
+use App\Models\LostItem;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -31,11 +33,13 @@ class CommentController extends Controller
         $request->validate([
             'content'=>'required|string',
             'user_id'=>'required',
+            'is_most_wanted'=>'required',
         ]);
 
         Comment::create([
             'content'=>$request->content,
             'post_id'=>$id,
+            'is_most_wanted'=>$request->is_most_wanted,
             'user_id'=>$request->user_id,
         ]);
 
@@ -45,9 +49,20 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $post = LostItem::findOrFail($id);
+        $comments=Comment::where('post_id',$id)->where('is_most_wanted',0)->paginate(10);
+
+        return view('comments',['comments'=>$comments,'lostItem'=>$post,'type'=>1]);
+    }
+
+    public function showMostWanted($id)
+    {
+        $post = Crime::findOrFail($id);
+        $comments=Comment::where('post_id',$id)->where('is_most_wanted',1)->paginate(10);
+
+        return view('comments',['comments'=>$comments,'lostItem'=>$post,'type'=>2]);
     }
 
     /**

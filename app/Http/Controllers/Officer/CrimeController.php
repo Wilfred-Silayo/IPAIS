@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Officer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Crime;
+use App\Models\Image;
 use Illuminate\Http\Request;
 
 class CrimeController extends Controller
@@ -20,9 +21,10 @@ class CrimeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
     public function create()
     {
-        //
+        return view('officer.create_most_wanted');
     }
 
     /**
@@ -30,7 +32,43 @@ class CrimeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'description' => 'required|string',
+            'date_occurred'=>'required|date',
+            'is_most_wanted'=>'required',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate each uploaded image
+        ]);
+
+        // Store the crime details in the database
+        $crime = new Crime();
+        $crime->name = $validatedData['name'];
+        $crime->is_most_wanted=true;
+        $crime->category = $validatedData['category'];
+        $crime->location = $validatedData['location'];
+        $crime->description = $validatedData['description'];
+        $crime->date_occurred =$validatedData['date_occurred'];
+        $crime->reported_by = auth()->user()->username;
+        $crime->save();
+
+        // Upload and store the images
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->storeAs('public/crime_images', $imageName); 
+
+                $imageModel= new Image();
+                $imageModel->path=$imageName;
+                $imageModel->crime_id =$crime->id;  
+                $imageModel->save();              
+            }
+        }
+
+        // Redirect the user back with a success message
+        return redirect()->route('officer.reports.most.wanted')->with('success', 'Crime reported successfully.');
     }
 
     /**

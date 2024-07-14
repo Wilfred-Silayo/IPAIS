@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col">
             <div class="card bg-light shadow-sm">
                 <div class="card-header bg-secondary text-white">{{ __('Report lost items') }}</div>
-                <div class="card-body">
+                <div class="card-body col-md-6">
                     @session('error')
                     <x-alert type="danger" session="error" />
                     @endsession.

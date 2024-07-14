@@ -96,8 +96,6 @@ class LostItemsController extends Controller
             return view('reporter.report_lost_items', ['lostItems' => $lostItems]);
     }
 
-   
-
 
     /**
      * Show the form for editing the specified resource.

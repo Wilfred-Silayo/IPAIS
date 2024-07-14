@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col">
             <div class="card bg-light shadow-sm">
-                <div class="card-header bg-secondary text-white">{{ __('Report crimes') }}</div>
+                <div class="card-header bg-secondary text-white">{{ __('Create Most Wanted') }}</div>
                 <div class="card-body col-md-6">
                     @session('error')
                     <x-alert type="danger" session="error" />
@@ -16,8 +16,9 @@
                     @session('success')
                     <x-alert type="success" session="success" />
                     @endsession
-                    <form method="POST" action="{{ route('reporter.store.crimes') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('officer.store.crimes') }}" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="is_most_wanted" value="1">
                         <x-input-field input="name" type="text" text="Name of the crime" prefixIcon="fa fa-tag"
                             placeholder="Enter Name" />
                         <x-input-field input="category" type="text" text="Category" prefixIcon="fa fa-globe"
